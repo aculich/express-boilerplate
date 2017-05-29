@@ -24,12 +24,10 @@ morgan.token('pid', function getPid() {
  *               options are ("info", "debug", "warn", "fatal", "error").
  * @returns: bunyan.Logger instance.
  */
-var getLogger = exports.getLogger = function(name, level) {
-    return bunyan.createLogger({
-        name: name,
-        level: level || "info"
-    });
-};
+const getLogger = exports.getLogger = (name, level) => bunyan.createLogger({
+    name: name,
+    level: level || "info"
+});
 
 /**
  * Express middleware for HTTP request JSON logging.
@@ -41,23 +39,19 @@ var getLogger = exports.getLogger = function(name, level) {
  *
  * @returns {middleware}
  */
-var middleware = exports.middleware = function() {
-    return morgan(function(tokens, req, res) {
-        return JSON.stringify({
-            'remote-address': tokens['remote-addr'](req, res),
-            'time': tokens['date'](req, res, 'iso'),
-            'method': tokens['method'](req, res),
-            'url': tokens['url'](req, res),
-            'http-version': tokens['http-version'](req, res),
-            'status-code': tokens['status'](req, res),
-            'content-length': tokens['res'](req, res, 'content-length'),
-            'referrer': tokens['referrer'](req, res),
-            'user-agent': tokens['user-agent'](req, res),
-            'hostname': tokens['hostname'](req, res),
-            'pid': tokens['pid'](req, res)
-        });
-    });
-};
+const middleware = exports.middleware = () => morgan((tokens, req, res) => JSON.stringify({
+    'remote-address': tokens['remote-addr'](req, res),
+    'time': tokens['date'](req, res, 'iso'),
+    'method': tokens['method'](req, res),
+    'url': tokens['url'](req, res),
+    'http-version': tokens['http-version'](req, res),
+    'status-code': tokens['status'](req, res),
+    'content-length': tokens['res'](req, res, 'content-length'),
+    'referrer': tokens['referrer'](req, res),
+    'user-agent': tokens['user-agent'](req, res),
+    'hostname': tokens['hostname'](req, res),
+    'pid': tokens['pid'](req, res)
+}));
 
 /* capture console logging and call our logging service instead */
 let defaultLogger = getLogger(pkginfo.name);

@@ -15,11 +15,10 @@ function trimExtension(filename) {
 
 let models = {};
 
-fs.readdirSync(__dirname).forEach(function(fileOrDirectory) {
-
-    var lstat,
-        model,
-        name = capitalize(trimExtension(fileOrDirectory));
+fs.readdirSync(__dirname).forEach(fileOrDirectory => {
+    let lstat;
+    let model;
+    const name = capitalize(trimExtension(fileOrDirectory));
     abspath = path.join(__dirname, fileOrDirectory);
 
     if (abspath == __filename) {

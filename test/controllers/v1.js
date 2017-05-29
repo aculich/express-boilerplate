@@ -5,13 +5,13 @@ const app = express();
 
 app.use(require('../../controllers/v1'));
 
-describe('v1', function() {
-    describe('GET /', function() {
-      it('should respond with hello world', function(done) {
+describe('v1', () => {
+    describe('GET /', () => {
+      it('should respond with hello world', done => {
         request(app)
           .get('/')
           .expect(200)
-          .end(function(err, res) {
+          .end((err, res) => {
               if (err) return done(err);
               res.text.should.equal('hello world');
               done();

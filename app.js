@@ -9,7 +9,7 @@ const compression = require('compression');
 const logging = require('./services/logging');
 
 // initiate an express application
-var app = module.exports = express();
+const app = module.exports = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./controllers'));
 
 // error handlers
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
